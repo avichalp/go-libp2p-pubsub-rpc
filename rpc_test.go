@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	core "github.com/libp2p/go-libp2p-core/peer"
+	core "github.com/libp2p/go-libp2p/core/peer"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	rpc "github.com/textileio/go-libp2p-pubsub-rpc"
@@ -175,7 +175,7 @@ func TestMultiPingPong(t *testing.T) {
 	t3.SetMessageHandler(messageHandler)
 	fin.Add(t3)
 
-	time.Sleep(time.Second * 2) // wait for mdns discovery
+	time.Sleep(time.Second * 4) // wait for mdns discovery
 
 	// peer1 requests "pong" from peer2 and peer3
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
@@ -220,7 +220,7 @@ func TestMultiPingPong(t *testing.T) {
 		lk.Unlock()
 	}()
 	// allow enough time for peer2 join event to be propagated.
-	ctx2, cancel2 := context.WithTimeout(context.Background(), time.Second*2)
+	ctx2, cancel2 := context.WithTimeout(context.Background(), time.Second*4)
 	defer cancel2()
 	rc2, err := t4.Publish(
 		ctx2,

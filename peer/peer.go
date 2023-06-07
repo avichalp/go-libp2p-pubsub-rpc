@@ -9,16 +9,16 @@ import (
 	"time"
 
 	ipfslite "github.com/hsanjuan/ipfs-lite"
-	blockstore "github.com/ipfs/go-ipfs-blockstore"
-	ipfsconfig "github.com/ipfs/go-ipfs-config"
+	blockstore "github.com/ipfs/boxo/blockstore"
+	ipfsconfig "github.com/ipfs/kubo/config"
 	format "github.com/ipfs/go-ipld-format"
 	"github.com/libp2p/go-libp2p"
-	connmgr "github.com/libp2p/go-libp2p-connmgr"
-	cconnmgr "github.com/libp2p/go-libp2p-core/connmgr"
-	"github.com/libp2p/go-libp2p-core/crypto"
-	"github.com/libp2p/go-libp2p-core/host"
-	"github.com/libp2p/go-libp2p-core/peer"
-	"github.com/libp2p/go-libp2p-peerstore/pstoreds"
+	cconnmgr "github.com/libp2p/go-libp2p/core/connmgr"
+	connmgr "github.com/libp2p/go-libp2p/p2p/net/connmgr"
+	"github.com/libp2p/go-libp2p/core/crypto"
+	"github.com/libp2p/go-libp2p/core/host"
+	"github.com/libp2p/go-libp2p/core/peer"
+	"github.com/libp2p/go-libp2p/p2p/host/peerstore/pstoreds"
 	ps "github.com/libp2p/go-libp2p-pubsub"
 	"github.com/multiformats/go-multiaddr"
 	badger "github.com/textileio/go-ds-badger3"
@@ -131,9 +131,9 @@ func New(conf Config) (*Peer, error) {
 		return nil, fin.Cleanupf("setting up libp2p", err)
 	}
 	fin.Add(lhost, dht)
-
+	
 	// Create ipfslite peer
-	lpeer, err := ipfslite.New(ctx, dstore, lhost, dht, nil)
+	lpeer, err := ipfslite.New(ctx, dstore, nil, lhost, dht, nil)
 	if err != nil {
 		return nil, fin.Cleanupf("creating ipfslite peer", err)
 	}

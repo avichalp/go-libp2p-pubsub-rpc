@@ -9,9 +9,9 @@ import (
 	"sync"
 
 	"github.com/ipfs/go-cid"
-	util "github.com/ipfs/go-ipfs-util"
+	util "github.com/ipfs/boxo/util"
 	cbor "github.com/ipfs/go-ipld-cbor"
-	"github.com/libp2p/go-libp2p-core/peer"
+	"github.com/libp2p/go-libp2p/core/peer"
 	pubsub "github.com/libp2p/go-libp2p-pubsub"
 	golog "github.com/textileio/go-log/v2"
 )
